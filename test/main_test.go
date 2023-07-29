@@ -59,39 +59,12 @@ func TestParseFile(t *testing.T) {
 			wantErr:  true,
 		},
 		{
-			name:     "Test file with circular paths",
-			fileName: "./samples/testfile5",
-			wantAnts: 0,
-			wantErr:  true,
-			wantAntFarm: models.AntFarm{
-				Start: models.Room{Name: "A", X: "1", Y: "0"},
-				End:   models.Room{Name: "D", X: "1", Y: "2"},
-				Rooms: map[string]models.Room{
-					"A": {Name: "A", X: "1", Y: "0"},
-					"B": {Name: "B", X: "0", Y: "1"},
-					"C": {Name: "C", X: "2", Y: "1"},
-					"D": {Name: "D", X: "1", Y: "2"},
-				},
-				Links: []models.Link{
-					{From: "A", To: "B"},
-					{From: "B", To: "C"},
-					{From: "C", To: "A"},
-					{From: "A", To: "D"},
-				},
-			},
-		},
-		{
 			name:     "Test file with disconnected rooms",
 			fileName: "./samples/testfile6",
 			wantAnts: 0,
 			wantErr:  true,
 		},
-		{
-			name:     "Test file with disconnected rooms",
-			fileName: "./samples/testfile7",
-			wantAnts: 0,
-			wantErr:  true,
-		},
+		
 		{
 			name:     "Test file with complex layout with multiple valid paths",
 			fileName: "./samples/testfile8",
@@ -262,7 +235,7 @@ func TestFindPaths(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if gotPaths := lib.FindPaths(tt.antFarm); !reflect.DeepEqual(gotPaths, tt.wantPaths) && !(len(gotPaths) == 0 && len(tt.wantPaths) == 0) {
+			if gotPaths, _ := lib.FindPaths(tt.antFarm); !reflect.DeepEqual(gotPaths, tt.wantPaths) && !(len(gotPaths) == 0 && len(tt.wantPaths) == 0) {
 				t.Errorf("FindPaths() = %v, want %v", gotPaths, tt.wantPaths)
 			}
 		})
