@@ -1,10 +1,11 @@
 package lib
 
 import (
+	"errors"
 	"lemin/models"
 )
 
-func FindPaths(antFarm models.AntFarm) []models.Path {
+func FindPaths(antFarm models.AntFarm) ([]models.Path, error) {
 	visited := make(map[string]bool)
 	paths := [][]string{}
 
@@ -53,7 +54,11 @@ func FindPaths(antFarm models.AntFarm) []models.Path {
 
 	findPathsRecursive(antFarm.Start.Name, []string{})
 	SortPaths(paths)
-	return StringToRoom(paths, antFarm)
+
+	if len(paths) != 0 {
+		return StringToRoom(paths, antFarm), nil
+	}
+	return StringToRoom(paths, antFarm), errors.New("")
 }
 
 // Contains checks if a slice contains a string

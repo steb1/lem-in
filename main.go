@@ -10,11 +10,16 @@ func main() {
 	args := os.Args
 	if len(args) == 2 {
 		numberOfAnts, antFarm, fileContent, shouldReturn := lib.ParseFile(args[1])
-		fmt.Println(fileContent)
 		if shouldReturn {
 			return
 		}
-		paths := lib.FindPaths(antFarm)
+		fmt.Println(fileContent)
+		paths, err := lib.FindPaths(antFarm)
+
+		if err != nil {
+			fmt.Println("No path found")
+			return
+		}
 
 		lib.MoveAnts(paths, numberOfAnts)
 	} else {

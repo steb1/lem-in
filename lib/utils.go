@@ -24,6 +24,7 @@ func GetRoom(s string) (models.Room, bool) {
 	return room, true
 }
 
+
 func GetLink(s string) (models.Link, bool) {
 	ss := strings.Split(s, "-")
 	if len(ss) == 2 && ss[0] != ss[1] {

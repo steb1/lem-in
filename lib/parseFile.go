@@ -104,6 +104,8 @@ func GetAntFarmInfos(lines []string) (models.AntFarm, error) {
 						if fromExist && toExist {
 							if !haveDuplicate(link, antFarm.Links) {
 								antFarm.Links = append(antFarm.Links, link)
+							} else {
+								return antFarm, errors.New("ERROR: invalid data format, Duplicated Links")
 							}
 						} else {
 							return antFarm, errors.New("ERROR: invalid data format, Link bad formatted")
