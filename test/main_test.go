@@ -59,6 +59,28 @@ func TestParseFile(t *testing.T) {
 			wantErr:  true,
 		},
 		{
+			name:     "Test file with circular paths",
+			fileName: "./samples/testfile5",
+			wantAnts: 0,
+			wantErr:  true,
+			wantAntFarm: models.AntFarm{
+				Start: models.Room{Name: "A", X: "1", Y: "0"},
+				End:   models.Room{Name: "D", X: "1", Y: "2"},
+				Rooms: map[string]models.Room{
+					"A": {Name: "A", X: "1", Y: "0"},
+					"B": {Name: "B", X: "0", Y: "1"},
+					"C": {Name: "C", X: "2", Y: "1"},
+					"D": {Name: "D", X: "1", Y: "2"},
+				},
+				Links: []models.Link{
+					{From: "A", To: "B"},
+					{From: "B", To: "B"},
+					{From: "C", To: "A"},
+					{From: "A", To: "D"},
+				},
+			},
+		},
+		{
 			name:     "Test file with disconnected rooms",
 			fileName: "./samples/testfile6",
 			wantAnts: 0,
