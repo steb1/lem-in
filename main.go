@@ -23,6 +23,6 @@ func main() {
 
 		lib.MoveAnts(paths, numberOfAnts)
 	} else {
-		fmt.Println("[USAGE] : go run . filename")
+		fmt.Println("[USAGE] : ./lem-in path/to/your/file.txt")
 	}
 }

@@ -1,11 +1,12 @@
-#   🐜 LEM-IN
+# 🐜 LEM-IN
+
 ## DESCRIPTION
 
 This project is a simulation of an ant farm. It is written in Go and aims to find the quickest way to get a number of ants across a colony, from the start room to the end room.
 
 ## Project Overview
 
-An ant farm is created with links and rooms. The ants are placed on one side and they need to find the exit. The goal is to bring them to the end room with as few moves as possible. The shortest path is not necessarily the simplest. 
+An ant farm is created with links and rooms. The ants are placed on one side and they need to find the exit. The goal is to bring them to the end room with as few moves as possible. The shortest path is not necessarily the simplest.
 
 The program displays the results in a specific format on the standard output:
 
@@ -39,7 +40,7 @@ To use the program, pass the path of a text file containing the ant farm descrip
 
 ## Project Structure
 
-This project makes use of several key data structures: Room, Tunnel, Ant, and AntFarm. 
+This project makes use of several key data structures: Room, Tunnel, Ant, and AntFarm.
 
 - Room: Represents each room and contains the room name and its coordinates.
 - Link: Represents each tunnel and contains pointers to the two rooms it connects.
@@ -48,12 +49,13 @@ This project makes use of several key data structures: Room, Tunnel, Ant, and An
 
 Key functions:
 
+## AUTHORS
 
-##  AUTHORS
-+   [@pba](https://learn.zone01dakar.sn/git/pba)
-+   [@papgueye](https://learn.zone01dakar.sn/git/papgueye)
-+   [@lomalack](https://learn.zone01dakar.sn/git/lomalack)
-+   [@serignmbaye](https://learn.zone01dakar.sn/git/serignmbaye)
+- [@pba](https://learn.zone01dakar.sn/git/pba)
+- [@papgueye](https://learn.zone01dakar.sn/git/papgueye)
+- [@lomalack](https://learn.zone01dakar.sn/git/lomalack)
+- [@serignmbaye](https://learn.zone01dakar.sn/git/serignmbaye)
 
 ## LIVESHARE LINK
+
 https://prod.liveshare.vsengsaas.visualstudio.com/join?50A8CA4313BB2D1694205170CDFCC8FF587F
