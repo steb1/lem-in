@@ -11,7 +11,7 @@ type antPosition struct {
 	roomIdx int
 }
 
-func MoveAnts(paths []models.Path, numberOfAnts int) {
+func MoveAnts(paths []models.Path, numberOfAnts int) int {
 	if len(paths) != 0 {
 		currentPath := 0
 		antPositions := make(map[string]*antPosition)
@@ -57,8 +57,11 @@ func MoveAnts(paths []models.Path, numberOfAnts int) {
 		}
 
 		fmt.Println(moves)
-		fmt.Println("🐜🐜 We have :", len(strings.Split(moves, "\n"))-1, "turns")
+		numberOfMoves := len(strings.Split(moves, "\n"))-1
+		fmt.Println("🐜🐜 We have :", numberOfMoves, "turns")
+		return numberOfMoves
 	} else {
 		fmt.Println("There is no path")
 	}
+	return 0
 }

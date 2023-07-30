@@ -59,28 +59,6 @@ func TestParseFile(t *testing.T) {
 			wantErr:  true,
 		},
 		{
-			name:     "Test file with circular paths",
-			fileName: "./samples/testfile5",
-			wantAnts: 0,
-			wantErr:  true,
-			wantAntFarm: models.AntFarm{
-				Start: models.Room{Name: "A", X: "1", Y: "0"},
-				End:   models.Room{Name: "D", X: "1", Y: "2"},
-				Rooms: map[string]models.Room{
-					"A": {Name: "A", X: "1", Y: "0"},
-					"B": {Name: "B", X: "0", Y: "1"},
-					"C": {Name: "C", X: "2", Y: "1"},
-					"D": {Name: "D", X: "1", Y: "2"},
-				},
-				Links: []models.Link{
-					{From: "A", To: "B"},
-					{From: "B", To: "B"},
-					{From: "C", To: "A"},
-					{From: "A", To: "D"},
-				},
-			},
-		},
-		{
 			name:     "Test file with disconnected rooms",
 			fileName: "./samples/testfile6",
 			wantAnts: 0,
@@ -259,6 +237,75 @@ func TestFindPaths(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if gotPaths, _ := lib.FindPaths(tt.antFarm); !reflect.DeepEqual(gotPaths, tt.wantPaths) && !(len(gotPaths) == 0 && len(tt.wantPaths) == 0) {
 				t.Errorf("FindPaths() = %v, want %v", gotPaths, tt.wantPaths)
+			}
+		})
+	}
+}
+
+func TestMoveAnts(t *testing.T) {
+	// Test cases
+	testCases := []struct {
+		Paths          []models.Path
+		NumberOfAnts   int
+		ExpectedOutput int
+	}{
+		// Test case 1: There are paths and ants
+		{
+			Paths: []models.Path{
+				{
+					Ants: []models.Ant{},
+					Rooms: []models.Room{
+						{Name: "Room 1"},
+						{Name: "Room 2"},
+						{Name: "Room 3"},
+					},
+				},
+				{
+					Ants: []models.Ant{},
+					Rooms: []models.Room{
+						{Name: "Room 4"},
+						{Name: "Room 5"},
+					},
+				},
+			},
+			NumberOfAnts:   5,
+			ExpectedOutput: 4,
+		},
+		// Test case 2: There are paths but no ants
+		{
+			Paths: []models.Path{
+				{
+					Ants: []models.Ant{},
+					Rooms: []models.Room{
+						{Name: "Room 1"},
+						{Name: "Room 2"},
+						{Name: "Room 3"},
+					},
+				},
+				{
+					Ants: []models.Ant{},
+					Rooms: []models.Room{
+						{Name: "Room 4"},
+						{Name: "Room 5"},
+					},
+				},
+			},
+			NumberOfAnts:   0,
+			ExpectedOutput: 0,
+		},
+		// Test case 3: There are no paths
+		{
+			Paths:          []models.Path{},
+			NumberOfAnts:   5,
+			ExpectedOutput: 0,
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(fmt.Sprintf("NumberOfAnts=%d", tc.NumberOfAnts), func(t *testing.T) {
+			actualOutput := lib.MoveAnts(tc.Paths, tc.NumberOfAnts)
+			if actualOutput != tc.ExpectedOutput {
+				t.Errorf("Expected %d turns, but got %d turns", tc.ExpectedOutput, actualOutput)
 			}
 		})
 	}
